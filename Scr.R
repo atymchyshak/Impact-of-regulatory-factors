@@ -1,25 +1,3 @@
-# Make data
-library(readr)
-Cons <- read_delim("Consuption 2019-2022.csv", 
-                   delim = ";", 
-                   escape_double = FALSE, 
-                   col_types = cols(`2019_1` = col_double(), 
-                                    `2019_2` = col_double(), 
-                                    `2019_3` = col_double(), 
-                                    `2019_4` = col_double()), 
-                   trim_ws = TRUE)
-write.csv(Cons[,-c(4,5,6,7,8)],"Cons_data.csv")
-Cons_data <- read_csv("Cons_data.csv", col_types = cols(...1 = col_skip()))
-Data<-Cons_data[!apply(Cons_data[,-c(1,2,3)], 1, anyNA),]
-any_n<-function(x)
-{
-  res<-any(x<=0)
-  return(res)
-}
-Data1<-Data[!apply(Data[,-c(1,2,3)], 1, any_n),]
-Data2<-Data1[Data1$met=="X"&!is.na(Data1$met),]
-write.csv(Data2,"Data.csv")
-
 # Data analysis
 perc<-function(tab)
 {
